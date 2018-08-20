@@ -1,0 +1,20 @@
+%h1 Scholar+ (from #{@from} to #{@to})
+
+%table.table
+  %thead
+    %tr
+      %th #
+      %th Title
+      %th Authors
+      %th Journal
+      %th Year
+      %th Points
+  %tbody
+    - @papers.each_with_index do |paper, index|
+      %tr
+        %th= index + 1
+        %td= paper["title"]
+        %td= paper["authors"]
+        %td= paper["journal"]
+        %td= paper["year"]
+        %td= paper["points"]
