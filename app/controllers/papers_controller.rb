@@ -1,16 +1,18 @@
 class PapersController < ApplicationController
   def index
-    @from = 2010
-    @to = 2018
+    @from = params[:from] || 2010
+    @to = params[:to] || 2018
 
     @papers = Profile.all.
       map { |profile| papers(profile.name, @from, @to) }.
       flatten.
-      map { |profile| profile.except("profile") }.
+      map { |paper| paper.except("profile") }.
       uniq { |paper| paper["title"] }.
-      map { | paper| paper.merge("points" => points(paper["journal"], paper["year"])) }.
+      map { |paper| paper.merge("points" => points(paper["journal"], paper["year"])) }.
       sort_by { |paper| paper["points"] }.
       reverse
+
+    @score = @papers.sum { |paper| paper["points"] }
   end
 
   private
