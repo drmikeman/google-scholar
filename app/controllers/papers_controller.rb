@@ -1,12 +1,16 @@
 class PapersController < ApplicationController
+  def search; end
+
   def index
     @from = params[:from] || 2010
     @to = params[:to] || 2018
+    @profiles = params[:profiles].split(/\r\n/)
 
-    @papers = Profile.all.
+    @papers = Profile.
+      where(name: @profiles).
       map { |profile| papers(profile.name, @from, @to) }.
       flatten.
-      map { |paper| paper.except("profile") }.
+      map { |paper| paper.except("profile", "person") }.
       uniq { |paper| paper["title"] }.
       map { |paper| paper.merge("points" => points(paper["journal"], paper["year"])) }.
       sort_by { |paper| paper["points"] }.

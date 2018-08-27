@@ -1,0 +1,15 @@
+%h1 Scholar+
+%h2 Calculate points
+
+= form_tag(result_path) do |form|
+  %div.form-group
+    = label_tag 'from', 'From'
+    = number_field_tag 'from', 2010, class: 'from-control'
+    %div.form-group
+    = label_tag 'to', 'To'
+    = number_field_tag 'to', 2018, class: 'from-control'
+  %div.form-group
+    = label_tag 'profiles', 'Profiles to involve in the calculation'
+    = text_area_tag 'profiles', 'michal', class: 'form-control', rows: 6
+  %div.form-group
+    = button_tag 'Calculate', class: 'btn btn-primary'

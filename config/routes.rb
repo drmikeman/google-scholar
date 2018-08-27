@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  root "papers#index"
+  post '/result', to: 'papers#index'
+  root 'papers#search'
 end
