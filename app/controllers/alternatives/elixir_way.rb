@@ -6,16 +6,16 @@ class PapersController < ApplicationController
     @to = params[:to] || 2018
     @profiles = params[:profiles].split(/\r\n/)
 
-    selected_profiles = filter_profiles_by_names(@profiles)
-    papers_for_each_profile = fetch_papers_for_each_profile(selected_profiles)
-    papers = flatten_papers(papers_for_each_profile)
-    uniq_papers = papers_with_uniqe_title(papers)
-    narrow_papers = remove_profile_and_person(uniq_papers)
-    papers_with_points = append_points(narrow_papers)
-    sorted_papers = sort_by_points(papers_with_points)
+    @papers = @profiles
+    |> fetch_papers_for_each_profile
+    |> flatten_papers
+    |> papers_with_uniqe_title
+    |> remove_profile_and_person
+    |> append_points
+    |> sort_by_points
 
     @papers = sorted_papers
-    @score = sum_paper_points(sorted_papers)
+    @score = sum_paper_points(@papers)
   end
 
   private
