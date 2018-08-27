@@ -4,19 +4,13 @@
   %thead
     %tr
       %th #
-      %th Title
-      %th Authors
-      %th Journal
-      %th Year
-      %th Points
+      - @papers.first.keys.each do |attribute|
+        %th= attribute.humanize
   %tbody
     - @papers.each_with_index do |paper, index|
       %tr
         %th= index + 1
-        %td= paper["title"]
-        %td= paper["authors"]
-        %td= paper["journal"]
-        %td= paper["year"]
-        %td= paper["points"]
+        - paper.each do |_, value|
+          %td= value
 
 %p Score: <b>#{@score}</b>
