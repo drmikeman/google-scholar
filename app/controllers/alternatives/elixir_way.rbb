@@ -1,22 +1,22 @@
 class PapersController < ApplicationController
   def search; end
 
-  def index
-    @from = params[:from] || 2010
-    @to = params[:to] || 2018
-    @profiles = params[:profiles].split(/\r\n/)
+  # def index
+  #   @from = params[:from] || 2010
+  #   @to = params[:to] || 2018
+  #   @profiles = params[:profiles].split(/\r\n/)
 
-    @papers = @profiles
-    |> fetch_papers_for_each_profile
-    |> flatten_papers
-    |> papers_with_uniqe_title
-    |> remove_profile_and_person
-    |> append_points
-    |> sort_by_points
+  #   @papers = @profiles
+  #   |> fetch_papers_for_each_profile
+  #   |> flatten_papers
+  #   |> papers_with_uniqe_title
+  #   |> remove_profile_and_person
+  #   |> append_points
+  #   |> sort_by_points
 
-    @papers = sorted_papers
-    @score = sum_paper_points(@papers)
-  end
+  #   @papers = sorted_papers
+  #   @score = sum_paper_points(@papers)
+  # end
 
   private
 
